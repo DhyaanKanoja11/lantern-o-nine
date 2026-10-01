@@ -130,4 +130,5 @@ lantern-o-nine/
 ## Credits
 
 Built by **Dhyaan Kanoja** ([@DhyaanKanoja11](https://github.com/DhyaanKanoja11)).  
-Huge shoutout to the **Hack Club** team and everyone on the Slack helping high schoolers build real hardware!
+Special thanks to **Atulya** ([@Person-0](https://github.com/Person-0)) for help and inspiration from his awesome [Spicofy](https://github.com/Person-0/spicofy) project!  
+Huge shoutout to the **Hack Club** team and everyone on the Slack helping high schoolers build real hardware! <3
