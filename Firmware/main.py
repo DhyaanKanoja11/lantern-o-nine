@@ -43,7 +43,7 @@ encoder_handler.map = [
 # 3. 0.91" 128x32 I2C OLED DISPLAY (SSD1306)
 # -----------------------------------------------------------------------------
 # SDA is on D4, SCL is on D5.
-# Displays active layers, lock status, and real-time macropad telemetry.
+# Displays the current layer and keyboard status.
 oled_ext = Oled(
     OledDisplayMode.LAYER,
     oWidth=128,
