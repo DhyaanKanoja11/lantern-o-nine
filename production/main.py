@@ -7,43 +7,34 @@ import board
 from kmk.kmk_keyboard import KMKKeyboard
 from kmk.keys import KC
 from kmk.scanners import DiodeOrientation
+from kmk.modules.layers import Layers
 from kmk.modules.encoder import EncoderHandler
+from kmk.handlers.sequences import send_string, simple_key_sequence
 from kmk.extensions.peg_oled_display import Oled, OledDisplayMode, OledReactionType
 from kmk.extensions.RGB import RGB
 
-# Initialize keyboard instance
 keyboard = KMKKeyboard()
 
 # -----------------------------------------------------------------------------
 # 1. 3x3 SWITCH MATRIX PINOUT (Seeed Xiao RP2040)
 # -----------------------------------------------------------------------------
-# Rows connect to diode cathodes; columns connect to switch inputs.
-# Diode orientation is ROW2COL to prevent ghosting when pressing multiple keys.
 keyboard.row_pins = (board.D2, board.D3, board.D6)
 keyboard.col_pins = (board.D7, board.D8, board.D9)
 keyboard.diode_orientation = DiodeOrientation.ROW2COL
 
 # -----------------------------------------------------------------------------
-# 2. ROTARY ENCODER (EC11)
+# 2. MODULES & EXTENSIONS
 # -----------------------------------------------------------------------------
-# Encoder channel A connects to D1, channel B connects to D0.
-# Turning clockwise increases volume, counter-clockwise decreases volume.
+# Multi-layer support
+keyboard.modules.append(Layers())
+
+# Rotary encoder (EC11)
 encoder_handler = EncoderHandler()
+encoder_handler.pins = ((board.D1, board.D0, None, False),)
+encoder_handler.map = [((KC.VOLD, KC.VOLU),)]
 keyboard.modules.append(encoder_handler)
 
-encoder_handler.pins = (
-    (board.D1, board.D0, None, False),
-)
-
-encoder_handler.map = [
-    ((KC.VOLD, KC.VOLU),),
-]
-
-# -----------------------------------------------------------------------------
-# 3. 0.91" 128x32 I2C OLED DISPLAY (SSD1306)
-# -----------------------------------------------------------------------------
-# SDA is on D4, SCL is on D5.
-# Displays the current layer and keyboard status.
+# 0.91" 128x32 I2C OLED display (SSD1306)
 oled_ext = Oled(
     OledDisplayMode.LAYER,
     oWidth=128,
@@ -52,30 +43,46 @@ oled_ext = Oled(
 )
 keyboard.extensions.append(oled_ext)
 
-# -----------------------------------------------------------------------------
-# 4. SK6812MINI-E REVERSE-MOUNT RGB LEDS (Underglow)
-# -----------------------------------------------------------------------------
-# Data In routes from Xiao pin D10 (Pin 11).
-# 2 reverse-mount LEDs illuminate through the PCB cutouts for desk underglow.
+# RGB underglow (2x SK6812MINI-E on D10)
 rgb = RGB(pixel_pin=board.D10, num_pixels=2)
 keyboard.extensions.append(rgb)
 
 # -----------------------------------------------------------------------------
-# 5. KEYMAP CONFIGURATION (Customize your shortcuts here!)
+# 3. 3-MODE KEYMAP CONFIGURATION
 # -----------------------------------------------------------------------------
-# Layout:
-# [ Key 1: Esc       ] [ Key 2: Mute Media ] [ Key 3: Play/Pause ]
-# [ Key 4: Cut (X)   ] [ Key 5: Copy (C)   ] [ Key 6: Paste (V)  ]
-# [ Key 7: Undo (Z)  ] [ Key 8: Redo (Y)   ] [ Key 9: Enter      ]
+# Top Row: Mode switchers (Row 1 is identical across all layers)
+#   - Key 1: Mode 1 (Spotify / Media)
+#   - Key 2: Mode 2 (Git / Terminal)
+#   - Key 3: Mode 3 (Code / IDE)
+
+MODE_SPOTIFY = KC.TO(0)
+MODE_GIT     = KC.TO(1)
+MODE_CODE    = KC.TO(2)
 
 keyboard.keymap = [
+    # Layer 0: Spotify / Media Mode
     [
-        KC.ESC,           KC.MUTE,         KC.MPLY,
-        KC.LCMD(KC.X),    KC.LCMD(KC.C),   KC.LCMD(KC.V),
-        KC.LCMD(KC.Z),    KC.LCMD(KC.Y),   KC.ENTER,
-    ]
+        MODE_SPOTIFY,   MODE_GIT,        MODE_CODE,
+        KC.MPRV,        KC.MPLY,         KC.MNXT,
+        KC.VOLD,        KC.MUTE,         KC.VOLU,
+    ],
+    # Layer 1: Git & Terminal Mode
+    [
+        MODE_SPOTIFY,   MODE_GIT,        MODE_CODE,
+        simple_key_sequence((send_string("git status\n"),)),
+        simple_key_sequence((send_string("git add .\n"),)),
+        simple_key_sequence((send_string("git commit -m 'update'\n"),)),
+        simple_key_sequence((send_string("git push\n"),)),
+        KC.LCTL(KC.GRAVE),  # Toggle VS Code terminal
+        KC.LCTL(KC.L),      # Clear screen
+    ],
+    # Layer 2: Code & Editing Mode
+    [
+        MODE_SPOTIFY,   MODE_GIT,        MODE_CODE,
+        KC.LCTL(KC.C),  KC.LCTL(KC.V),   KC.LCTL(KC.X),
+        KC.LCTL(KC.Z),  KC.LCTL(KC.Y),   KC.LSFT(KC.LALT(KC.F)),  # Format doc
+    ],
 ]
 
-# Start the keyboard loop
 if __name__ == '__main__':
     keyboard.go()

@@ -19,7 +19,7 @@ Made as a submission to [Hack Club's Hackpad](https://hackpad.hackclub.com/) pro
 
 ---
 
-## 📷 Pictures & Design Files
+## Pictures & Design Files
 
 ### 3D PCB Renders
 | Top View | Bottom View |
@@ -33,7 +33,7 @@ Made as a submission to [Hack Club's Hackpad](https://hackpad.hackclub.com/) pro
 
 ---
 
-## ✨ Features
+## Features
 - **9 Cherry MX Mechanical Switches** in a 3x3 matrix with 1N4148 diodes so there's zero ghosting (NKRO).
 - **EC11 Rotary Encoder** to smoothly change volume up/down, plus click-to-mute.
 - **0.91" 128x32 I2C OLED Display** showing the active layer and status.
@@ -42,7 +42,7 @@ Made as a submission to [Hack Club's Hackpad](https://hackpad.hackclub.com/) pro
 
 ---
 
-## 🛠️ Components Used (BOM)
+## Components Used (BOM)
 
 All parts are beginner friendly and follow the Hack Club approved parts list:
 
@@ -57,7 +57,7 @@ All parts are beginner friendly and follow the Hack Club approved parts list:
 
 ---
 
-## 🔌 Xiao RP2040 Pinout
+## Xiao RP2040 Pinout
 
 | Pin | GPIO | What it connects to |
 | :--- | :--- | :--- |
@@ -78,7 +78,7 @@ All parts are beginner friendly and follow the Hack Club approved parts list:
 
 ---
 
-## 💻 Firmware (CircuitPython + KMK)
+## Firmware (CircuitPython + KMK)
 
 The firmware is super simple and runs using [KMK](https://github.com/KMKfw/kmk_firmware) on CircuitPython.
 
@@ -88,15 +88,16 @@ The firmware is super simple and runs using [KMK](https://github.com/KMKfw/kmk_f
 3. Once the drive reboots as `CIRCUITPY`, download [KMK Firmware](https://github.com/KMKfw/kmk_firmware) and copy the `kmk/` folder into the `CIRCUITPY` drive.
 4. Copy [`Firmware/main.py`](./Firmware/main.py) into the `CIRCUITPY` drive and rename it to `code.py`.
 
-### Default Keybindings:
-- **Top Row:** `Escape` | `Mute` | `Play/Pause`
-- **Middle Row:** `Cut (Ctrl+X)` | `Copy (Ctrl+C)` | `Paste (Ctrl+V)`
-- **Bottom Row:** `Undo (Ctrl+Z)` | `Redo (Ctrl+Y)` | `Enter`
-- **Rotary Knob:** Turn clockwise for Volume Up, counter-clockwise for Volume Down, press down to Mute.
+### 3-Mode Layout:
+- **Top Row (Mode Switchers):** Key 1 = Spotify Mode | Key 2 = Git Mode | Key 3 = Code Mode
+- **Mode 1 (Spotify):** Prev Track, Play/Pause, Next Track, Vol Down, Mute, Vol Up
+- **Mode 2 (Git):** `git status`, `git add .`, `git commit`, `git push`, Toggle Terminal (`Ctrl+~`), Clear (`Ctrl+L`)
+- **Mode 3 (Code):** Copy (`Ctrl+C`), Paste (`Ctrl+V`), Cut (`Ctrl+X`), Undo (`Ctrl+Z`), Redo (`Ctrl+Y`), Format (`Shift+Alt+F`)
+- **Rotary Knob:** Turn clockwise for Volume Up, counter-clockwise for Volume Down.
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 lantern-o-nine/
@@ -126,7 +127,7 @@ lantern-o-nine/
 
 ---
 
-## ❤️ Credits
+## Credits
 
 Built by **Dhyaan Kanoja** ([@DhyaanKanoja11](https://github.com/DhyaanKanoja11)).  
 Huge shoutout to the **Hack Club** team and everyone on the Slack helping high schoolers build real hardware!
