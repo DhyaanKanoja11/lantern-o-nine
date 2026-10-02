@@ -31,10 +31,16 @@ Made as a submission to [Hack Club's Hackpad](https://hackpad.hackclub.com/) pro
 | :---: | :---: |
 | <img src="./images/schematic.svg" width="380"> | <img src="./images/pcb_layout.svg" width="380"> |
 
-### 3D CAD Case & PCB Assembly
-| Exploded Assembly (How PCB is Encased) | Fully Assembled Case | Bottom Case (Honeycomb & Logo) |
+### 3D CAD Enclosure & Mechanical Assembly
+| Exploded Assembly (PCB Encasing) | Fully Assembled Case | Bottom Case (Rosette & Logo) |
 | :---: | :---: | :---: |
-| <img src="./images/cad_exploded_view.png" width="250"> | <img src="./images/cad_assembled_view.png" width="250"> | <img src="./images/cad_bottom_view.png" width="250"> |
+| <img src="./images/cad_exploded_view.png" width="260" alt="Exploded Assembly View"> | <img src="./images/cad_assembled_view.png" width="260" alt="Fully Assembled CAD View"> | <img src="./images/cad_bottom_view.png" width="260" alt="Bottom Case Detail View"> |
+
+The 2-piece enclosure consists of a 6.0mm top plate and 9.2mm bottom shell:
+- **Mechanical Encasing:** The custom 2-layer PCB (1.6mm FR4) drops directly into the bottom shell, seating flush on an internal perimeter retention shelf with dedicated clearance below for diode and switch pin solder joints.
+- **Top Plate Retention:** The top plate caps the assembly, clamping the PCB securely while exposing the 9 Cherry MX switch stems through 14x14mm cutouts, an OLED viewing bezel, and a rotary encoder shaft opening.
+- **Thermal & Ports:** The underside features an integrated 7-hex honeycomb ventilation rosette and debossed "Lantern-o-Nine" branding, with an aligned rear cutout for the Seeed Xiao USB-C port.
+
 
 ---
 
@@ -109,7 +115,9 @@ lantern-o-nine/
 ├── README.md                 # This file!
 ├── .gitignore                # KiCad gitignore
 ├── CAD/
-│   └── assembled-model.STEP  # Full 3D assembly of case + PCB
+│   ├── assembled-model.STEP  # Full 3D assembly of case + PCB
+│   ├── Top.STEP              # Switch plate CAD model
+│   └── Bottom.STEP           # Bottom enclosure CAD model
 ├── PCB/
 │   ├── hackpadtrial.kicad_pro# KiCad 10 project file
 │   ├── hackpadtrial.kicad_sch# Schematic
@@ -135,8 +143,20 @@ lantern-o-nine/
 
 ---
 
+## AI Declaration
+
+AI tools (Antigravity CLI and ChatGPT) were used as educational mentors and engineering copilots throughout this build:
+- **Mentorship & Tooling:** Learning new software workflows across KiCad 10, design rules, and CAD export standards.
+- **Firmware Architecture:** Advice and guidance on structuring the 3-mode KMK keymap, matrix scanning, and CircuitPython extensions.
+- **Documentation:** Assistance reviewing and structuring the README and project devlogs.
+
+All circuit schematics, board routing, mechanical 3D tolerances, and component choices were designed and tested by me.
+
+---
+
 ## Credits
 
 Built by **Dhyaan Kanoja** ([@DhyaanKanoja11](https://github.com/DhyaanKanoja11)).  
 Special thanks to **Atulya** ([@Person-0](https://github.com/Person-0)) for help and inspiration from his awesome [Spicofy](https://github.com/Person-0/spicofy) project!  
 Huge shoutout to the **Hack Club** team and everyone on the Slack helping high schoolers build real hardware! <3
+
