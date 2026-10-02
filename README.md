@@ -31,6 +31,11 @@ Made as a submission to [Hack Club's Hackpad](https://hackpad.hackclub.com/) pro
 | :---: | :---: |
 | <img src="./images/schematic.svg" width="380"> | <img src="./images/pcb_layout.svg" width="380"> |
 
+### 3D CAD Case & PCB Assembly
+| Exploded Assembly (How PCB is Encased) | Fully Assembled Case | Bottom Case (Honeycomb & Logo) |
+| :---: | :---: | :---: |
+| <img src="./images/cad_exploded_view.png" width="250"> | <img src="./images/cad_assembled_view.png" width="250"> | <img src="./images/cad_bottom_view.png" width="250"> |
+
 ---
 
 ## Features
@@ -121,6 +126,9 @@ lantern-o-nine/
     ├── render_iso.png
     ├── render_top.png
     ├── render_bottom.png
+    ├── cad_exploded_view.png # Exploded view showing PCB encasing
+    ├── cad_assembled_view.png# Fully assembled 3D case
+    ├── cad_bottom_view.png   # Bottom shell with honeycomb & logo
     ├── schematic.svg
     └── pcb_layout.svg
 ```
